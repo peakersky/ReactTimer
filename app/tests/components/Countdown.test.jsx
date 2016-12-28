@@ -32,7 +32,7 @@ describe('Countdown', () => {
             // A fix to this is to pass 'done' as the argument, which tells mocha that there is asynchronous testing.
             // Insert the done() after the setTimeout finishes.
         });
-        it('should nver set count less than zero', (done) => {
+        it('should never set count less than zero', (done) => {
             // we must test that the count will not become a negative number.
             // Create the element.
             var countdown = TestUtils.renderIntoDocument(<Countdown />);
@@ -43,7 +43,31 @@ describe('Countdown', () => {
                 expect(countdown.state.count).toBe(0)
                 done();
             }, 3001)
+        });
+        it('should pause countdown on paused status', (done) => {
+            var countdown = TestUtils.renderIntoDocument(<Countdown />)
+
+            countdown.handleSetCountdown(3);
+            countdown.handleStatusChange('paused');
+            setTimeout(() => {
+                expect(countdown.state.count).toBe(3);
+                expect(countdown.state.countdownStatus).toBe('paused');
+                done()
+            }, 1001);
+        });
+        it('should reset the count on stopped', (done) => {
+            var countdown = TestUtils.renderIntoDocument(<Countdown />)
+
+            countdown.handleSetCountdown(3);
+            countdown.handleStatusChange('stopped');
+            setTimeout(() => {
+                expect(countdown.state.count).toBe(0);
+                expect(countdown.state.countdownStatus).toBe('stopped');
+                done()
+            }, 1001);
         })
+
+
     });
 });
 

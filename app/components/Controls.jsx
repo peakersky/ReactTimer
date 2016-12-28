@@ -8,7 +8,7 @@ var React = require('react');
 var Controls = React.createClass({
     // Will have a prop passed down.
     propTypes: {
-        countdownStatus: React.PropTypes.string.isRequired, // tells what kind of primitive is expected
+        countdownStatus: React.PropTypes.string.isRequired,
         onStatusChange: React.PropTypes.func.isRequired
     },
     onStatusChange: function (newStatus) {
