@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path')
 
 module.exports = {
     entry: [
@@ -44,6 +45,11 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/ // Choose which folders to exclude from running through webpack
             }
         ]
+    },
+    sassLoader: {
+      includePaths: [
+        path.resolve(__dirname, './node_modules/foundation-sites/scss')
+      ]
     },
     devtool: 'inline-source-map'
 };

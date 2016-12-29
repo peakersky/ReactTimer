@@ -7,7 +7,6 @@ var Timer = require('Timer');
 
 // We do not need to assign variables to require css components, because they will not be used in the render method.
 // load foundation
-require('style!css!foundation-sites/dist/foundation.min.css');
 $(document).foundation();
 // Compile the app.scss into css with loaders, and load them on the app.jsx
 require('style!css!sass!applicationStyles');
