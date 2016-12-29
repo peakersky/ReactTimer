@@ -44,7 +44,7 @@ var Countdown = React.createClass({
             });
             if (newCount === 0) {
                 this.setState({countdownStatus: 'stopped'});
-            };
+            }
         }, 1000);
     },
     handleSetCountdown: function(seconds) {
@@ -58,6 +58,7 @@ var Countdown = React.createClass({
             // There is also another component lifecycle method that gets called when the state gets updated.
         })
     },
+    // Receive the newStatus from Controls, and set it as the countdownStatus -> passes to lifecycle componentDidUpdate
     handleStatusChange: function (newStatus) {
         this.setState({countdownStatus: newStatus})
     },
@@ -65,9 +66,12 @@ var Countdown = React.createClass({
         var {count, countdownStatus} = this.state;
 
         var renderControlArea = () => {
-            if (countdownStatus !== 'stopped') {
+            if (countdownStatus !== 'stopped') { // If status is started, or paused render the controls
+                // onStatusChange is called by its child 'Controls' which eventually modifies countdownStatus.
+                // countdownStatus passes the current state down to controls
                 return <Controls countdownStatus={countdownStatus} onStatusChange={this.handleStatusChange} />
-            } else {
+            } else { // if status is stopped, render CountdownForm
+                // Question. why do we handleSetCountdown if it sets the state to 'started'
                 return <CountdownForm onSetCountdown={this.handleSetCountdown}/>
             }
         };

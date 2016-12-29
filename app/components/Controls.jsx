@@ -3,8 +3,6 @@ var React = require('react');
 // this controls component is going to be passed down the countdownStatus.
 // it needs to dynamically render the button.
 
-
-
 var Controls = React.createClass({
     // Will have a prop passed down.
     propTypes: {
@@ -18,7 +16,8 @@ var Controls = React.createClass({
         // the user clicks the button.
         // function currying - using a function to generate another function.
         return () => {
-        // Execute the function that gets passed down from the parent via the props.
+        // Execute the function that gets passed down from the render function.
+        // Execute the parent function Countdown.jsx, and pass it the new status.
             this.props.onStatusChange(newStatus); // the newStatus is whatever argument was passed in the onClick event handler.
         }
     },
@@ -28,20 +27,17 @@ var Controls = React.createClass({
         // render the proper button depending on the countdownStatus.
         var renderStartStopButton = () => {
             // when the countdownStatus is 'started', we want to render the pause button,
-            // when the countdownStatus is 'stopped', we want to render the start button,
             if (countdownStatus === 'started') {
                 return <button className="button secondary" onClick={this.onStatusChange('paused')}>Pause</button>
-            } else if (countdownStatus === 'paused') {
+            // when the countdownStatus is 'paused', we want to render the start button,
+          } else if (countdownStatus === 'paused' || 'stopped') {
                 return <button className="button primary" onClick={this.onStatusChange('started')}>Start</button>
             }
         };
         return (
             <div className="controls">
-            {renderStartStopButton()} {/*render the start or stop button */}
+            {renderStartStopButton()}
             <button className="button alert hollow" onClick={this.onStatusChange('stopped')}>Clear</button>
-            {/*we cannot set conditional statements on jsx code.*/}
-            {/*we need to define a new function, that would return the code I'd like to run,*/}
-            {/*then call the function inside the jsx.*/}
             </div>
         )
     }
